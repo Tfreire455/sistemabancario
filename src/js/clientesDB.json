@@ -1,0 +1,14 @@
+[
+  {
+    "nome": "Cliente 1",
+    "cpf": "12345678901",
+    "agencia": "6870",
+    "email": "cliente1@example.com"
+  },
+  {
+    "nome": "Cliente 2",
+    "cpf": "23456789012",
+    "agencia": "1234",
+    "email": "cliente2@example.com"
+  }
+]

@@ -2,17 +2,35 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
-
 function NovaContaForm() {
   const [validated, setValidated] = useState(false);
 
   const handleSubmit = (event) => {
+    event.preventDefault(); // Previne o envio padrão do formulário
     const form = event.currentTarget;
+
     if (form.checkValidity() === false) {
-      event.preventDefault();
       event.stopPropagation();
+    } else {
+      // Acessa os valores dos campos após a validação
+      const nome = form.elements.nome.value;
+      const sobrenome = form.elements.sobrenome.value;
+      const email = form.elements.email.value;
+      const agencia = form.elements.agencia.value;
+      const cpf = form.elements.cpf.value;
+
+      console.log(nome, sobrenome, email, agencia, cpf);
+
+      if (
+        nome === "" ||
+        sobrenome === "" ||
+        email === "" ||
+        agencia === "" ||
+        cpf === ""
+      ) {
+        alert("Preencha todos os campos");
+      }
     }
 
     setValidated(true);
@@ -20,75 +38,85 @@ function NovaContaForm() {
 
   return (
     <Form noValidate validated={validated} onSubmit={handleSubmit}>
-      <Row className="mb-3">
-        <Form.Group as={Col} md="4" controlId="validationCustom01">
-          <Form.Label>First name</Form.Label>
+      <Row className="mb-3 align-center">
+        <Form.Group as={Col} md="">
+          <Form.Label>Nome</Form.Label>
           <Form.Control
             required
+            id="nome"
+            name="nome"
             type="text"
             placeholder="First name"
-            defaultValue="Mark"
+            defaultValue={""}
           />
-          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          <Form.Control.Feedback>Muito bem!</Form.Control.Feedback>
         </Form.Group>
-        <Form.Group as={Col} md="4" controlId="validationCustom02">
-          <Form.Label>Last name</Form.Label>
+        <Form.Group as={Col} md="">
+          <Form.Label>Sobrenome</Form.Label>
           <Form.Control
             required
+            id="sobrenome"
+            name="sobrenome"
             type="text"
             placeholder="Last name"
-            defaultValue="Otto"
+            defaultValue={""}
           />
-          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-          <Form.Label>Username</Form.Label>
-          <InputGroup hasValidation>
-            <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
-            <Form.Control
-              type="text"
-              placeholder="Username"
-              aria-describedby="inputGroupPrepend"
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Please choose a username.
-            </Form.Control.Feedback>
-          </InputGroup>
+          <Form.Control.Feedback>Muito bem!</Form.Control.Feedback>
         </Form.Group>
       </Row>
       <Row className="mb-3">
-        <Form.Group as={Col} md="6" controlId="validationCustom03">
-          <Form.Label>City</Form.Label>
-          <Form.Control type="text" placeholder="City" required />
+        <Form.Group as={Col} md="6">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Email"
+            required
+          />
           <Form.Control.Feedback type="invalid">
-            Please provide a valid city.
+            Adicione um email válido!
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group as={Col} md="3" controlId="validationCustom04">
-          <Form.Label>State</Form.Label>
-          <Form.Control type="text" placeholder="State" required />
+        <Form.Group as={Col} md="">
+          <Form.Label>Agência</Form.Label>
+          <Form.Control
+            id="agencia"
+            name="agencia"
+            type="number"
+            placeholder="Agência"
+            required
+          />
           <Form.Control.Feedback type="invalid">
-            Please provide a valid state.
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group as={Col} md="3" controlId="validationCustom05">
-          <Form.Label>Zip</Form.Label>
-          <Form.Control type="text" placeholder="Zip" required />
-          <Form.Control.Feedback type="invalid">
-            Please provide a valid zip.
+            Adicione uma agência válida
           </Form.Control.Feedback>
         </Form.Group>
       </Row>
-      <Form.Group className="mb-3">
+      <Row>
+        <Col md={{ span: 12, offset: 0 }}>
+          <Form.Group className="mb-1" as={Col} xs="" md="12">
+            <Form.Label>CPF</Form.Label>
+            <Form.Control
+              required
+              id="cpf"
+              name="cpf"
+              type="number"
+              placeholder="CPF"
+              defaultValue={""}
+            />
+            <Form.Control.Feedback>Muito bem!</Form.Control.Feedback>
+          </Form.Group>
+        </Col>
+      </Row>
+      <Form.Group className="mb-1">
         <Form.Check
           required
-          label="Agree to terms and conditions"
-          feedback="You must agree before submitting."
+          label="Concordo com os termos e condições"
+          feedback="Você deve concordar antes de enviar."
           feedbackType="invalid"
         />
       </Form.Group>
-      <Button type="submit">Submit form</Button>
+      <Button type="submit">Criar</Button>
     </Form>
   );
 }
